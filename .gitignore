@@ -1,10 +1,9 @@
 node_modules/
 .openvidstudio/
-recordings/
-output/
 stills/
-*.mp4
-*.png
 .env
 .env.local
 .DS_Store
+.auth_session/
+recordings/*.webm
+output/raw_mix.mp4

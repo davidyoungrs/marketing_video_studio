@@ -3,10 +3,14 @@ const path = require('path');
 const fs = require('fs');
 
 async function recordWorkflow() {
-  const recordingsDir = path.join(__dirname, '../../recordings');
+  const rootDir = path.join(__dirname, '../..');
+  const recordingsDir = path.join(rootDir, 'recordings');
   if (!fs.existsSync(recordingsDir)) {
     fs.mkdirSync(recordingsDir, { recursive: true });
   }
+
+  // Ensure high-res company logo exists for upload
+  const logoPath = path.join(recordingsDir, 'company_logo.png');
 
   console.log('Starting Playwright automated capture session...');
   const browser = await chromium.launch({
@@ -49,37 +53,62 @@ async function recordWorkflow() {
   await startForFreeBtn.click();
 
   // Beat 2: In the card builder
-  console.log('Beat 2: Card builder loaded, entering details...');
+  console.log('Beat 2: Card builder loaded, clearing existing text and entering details...');
   await page.waitForURL('**/create', { timeout: 15000 });
   await page.waitForTimeout(2000);
 
-  // Fill in synthetic details
+  // Helper to clearly and visibly select existing text and delete it
+  async function visiblyClearInput(inputLocator) {
+    await inputLocator.scrollIntoViewIfNeeded();
+    await inputLocator.click();
+    await page.waitForTimeout(400);
+    await inputLocator.selectText();
+    await page.waitForTimeout(600);
+    await page.keyboard.press('Backspace');
+    await page.waitForTimeout(500);
+  }
+
+  // 1. Name Input: Select existing text, delete it, then type "Sarah Jenkins"
   const nameInput = page.getByPlaceholder('John Doe');
-  await nameInput.click();
-  await nameInput.pressSequentially('Sarah Jenkins', { delay: 100 });
+  await visiblyClearInput(nameInput);
+  await nameInput.pressSequentially('Sarah Jenkins', { delay: 90 });
   await page.waitForTimeout(800);
 
+  // 2. Position / Title Input: Select existing text, delete it, then type "Head of Partnerships"
   const titleInput = page.getByPlaceholder('Chief Executive Officer');
-  await titleInput.click();
-  await titleInput.pressSequentially('Head of Partnerships', { delay: 90 });
+  await visiblyClearInput(titleInput);
+  await titleInput.pressSequentially('Head of Partnerships', { delay: 85 });
   await page.waitForTimeout(800);
 
+  // 3. Company Name Input
   const companyInput = page.getByPlaceholder('Acme Corp');
-  await companyInput.click();
-  await companyInput.pressSequentially('Apex Dynamics', { delay: 90 });
-  await page.waitForTimeout(1000);
+  await visiblyClearInput(companyInput);
+  await companyInput.pressSequentially('Apex Dynamics', { delay: 85 });
+  await page.waitForTimeout(800);
 
-  // Bio
+  // 4. Upload Company Logo
+  console.log('Uploading company logo...');
+  const logoInput = page.locator('input[type="file"]').nth(1);
+  if (fs.existsSync(logoPath)) {
+    const uploadBtn = page.getByText('UPLOAD', { exact: true }).first();
+    await uploadBtn.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    await logoInput.setInputFiles(logoPath);
+    await page.waitForTimeout(1500);
+  }
+
+  // 5. Bio
   const bioInput = page.getByPlaceholder('Tell us about yourself...');
-  await bioInput.click();
-  await bioInput.pressSequentially('Scaling digital growth and enterprise collaborations globally.', { delay: 60 });
+  await visiblyClearInput(bioInput);
+  await bioInput.pressSequentially('Scaling digital growth and enterprise collaborations globally.', { delay: 55 });
   await page.waitForTimeout(1200);
 
   // Beat 3: Contact & Channels
   console.log('Beat 3: Adding contact numbers & links...');
   const mobileInput = page.getByPlaceholder('Mobile');
+  await mobileInput.scrollIntoViewIfNeeded();
   await mobileInput.click();
-  await mobileInput.pressSequentially('555-019-2834', { delay: 80 });
+  await mobileInput.pressSequentially('555-019-2834', { delay: 75 });
   await page.waitForTimeout(800);
 
   const emailInput = page.getByPlaceholder('Email Address');
@@ -89,19 +118,23 @@ async function recordWorkflow() {
     await page.waitForTimeout(1000);
   }
 
-  // Beat 4: Themes & Typography
-  console.log('Beat 4: Testing theme palettes & typography...');
-  const themes = ['MIDNIGHT', 'AURORA', 'SUNSET', 'OCEAN'];
-  for (const theme of themes) {
-    const themeBtn = page.getByRole('button', { name: theme, exact: true });
-    if (await themeBtn.isVisible()) {
-      await themeBtn.click();
-      await page.waitForTimeout(1200);
+  // Beat 4: Cool Palettes & Typography
+  console.log('Beat 4: Testing 3 selections from Cool Palettes...');
+  const coolPalettes = ['Midnight', 'Ocean', 'Forest'];
+  for (const pal of coolPalettes) {
+    const palBtn = page.getByRole('button', { name: pal, exact: false });
+    if (await palBtn.isVisible()) {
+      await palBtn.scrollIntoViewIfNeeded();
+      await palBtn.hover();
+      await page.waitForTimeout(300);
+      await palBtn.click();
+      await page.waitForTimeout(1400);
     }
   }
 
   const fontBtn = page.getByRole('button', { name: 'Outfit', exact: true });
   if (await fontBtn.isVisible()) {
+    await fontBtn.scrollIntoViewIfNeeded();
     await fontBtn.click();
     await page.waitForTimeout(1200);
   }
@@ -110,6 +143,7 @@ async function recordWorkflow() {
   console.log('Beat 5: Reviewing card and plan...');
   const reviewBtn = page.getByRole('button', { name: 'Review & Choose Plan' });
   if (await reviewBtn.isVisible()) {
+    await reviewBtn.scrollIntoViewIfNeeded();
     await reviewBtn.hover();
     await page.waitForTimeout(1000);
     await reviewBtn.click();

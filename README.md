@@ -37,7 +37,7 @@ Standalone, AI-driven marketing and sales explainer video studio. Explores live 
 - [x] Feature inventory cataloged (`RS-FEAT-001`)
 - [x] OpenVidStudio MCP server configured in Antigravity
 - [x] Storyboard & narration script drafted and documented
-- [ ] Record 1080p genuine browser footage (`recordings/raw_footage.mp4`)
-- [ ] Synthesize narration audio and sync to beats
-- [ ] Render finalized 1080p MP4 with captions and loudness normalization (`-14 LUFS`)
-- [ ] Verify playable MP4, duration, audio, and thumbnail in `output/`
+- [x] Record 1080p genuine browser footage (`recordings/raw_footage.mp4`)
+- [x] Synthesize narration audio and sync to beats (`audio/`)
+- [x] Render finalized 1080p MP4 with captions and loudness normalization (`-14 LUFS`)
+- [x] Verify playable MP4, duration, audio, and thumbnail in `output/`
