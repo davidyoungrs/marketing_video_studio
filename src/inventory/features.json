@@ -1,0 +1,30 @@
+{
+  "application": "Really Simple Digital Business Cards",
+  "verifiedDomain": "https://www.reallysimpleapps.com",
+  "lastAudited": "2026-10-24T14:43:00Z",
+  "features": [
+    {
+      "id": "RS-FEAT-001",
+      "name": "Setting Up a Free Digital Business Card",
+      "route": "/create",
+      "purpose": "Enables users to quickly create and customize an interactive digital business card with contact info, social links, custom themes, and typography.",
+      "intendedUser": "Professionals, freelancers, creators, and business executives",
+      "customerProblemSolved": "Traditional paper cards are static, easily lost, and outdated quickly. This provides an instant, interactive, mobile-optimized card.",
+      "startingConditions": "Public access to https://www.reallysimpleapps.com; no upfront payment or account required to start creating.",
+      "demonstrationSteps": [
+        "1. Navigate to https://www.reallysimpleapps.com and click 'Start for Free' or 'Create Card'.",
+        "2. Arrive at /create card builder interface.",
+        "3. Enter synthetic professional details (Name: 'Sarah Jenkins', Title: 'Product Lead', Company: 'Apex Dynamics', Bio).",
+        "4. Configure contact channels (Mobile, Email, Website, LinkedIn).",
+        "5. Select dynamic color themes (e.g. Midnight, Aurora, Sunset) and watch real-time live preview update.",
+        "6. Select typography pairings (e.g. Outfit, Inter).",
+        "7. Click 'Review & Choose Plan' to view free card deployment options."
+      ],
+      "expectedOutcomes": "Live card preview updates dynamically with every keystroke; professional layout rendered with interactive action buttons (Connect, Save, Wallet).",
+      "verificationEvidence": "Screenshots captured at recordings/landing_preview.png and recordings/create_card_page.png; inspected interactive DOM elements and plan review buttons.",
+      "relatedWorkflows": ["Plan selection", "Wallet pass generation (Apple/Google Wallet)", "QR code sharing"],
+      "recordingStatus": "verified_ready_for_capture",
+      "knownLimitations": "Synthetic data used to avoid leaking user info. Final plan submission stops before any live payment/destructive action."
+    }
+  ]
+}
