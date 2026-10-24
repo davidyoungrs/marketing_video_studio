@@ -1,0 +1,10 @@
+node_modules/
+.openvidstudio/
+recordings/
+output/
+stills/
+*.mp4
+*.png
+.env
+.env.local
+.DS_Store
