@@ -1,8 +1,8 @@
 {
-  "stagingBaseUrl": "https://reallysimple-4gth097za-davidyoungrs-projects.vercel.app",
+  "stagingBaseUrl": "https://www.reallysimpleapps.com",
   "targetFeature": "setting-up-a-free-card",
   "featureTitle": "Setting Up a Free Digital Business Card",
-  "intendedAudience": "Professionals and businesses seeking simple, elegant digital business cards",
+  "intendedAudience": "Professionals, creators, and businesses seeking modern digital business cards",
   "targetDurationSeconds": 60,
   "aspectRatio": "16:9",
   "resolution": {
@@ -10,8 +10,8 @@
     "height": 1080
   },
   "authentication": {
-    "type": "vercel_deployment_protection",
-    "notes": "Vercel SSO / deployment protection active on preview domain. Browser context session storage or bypass required."
+    "type": "public_landing_flow",
+    "notes": "Direct access via https://www.reallysimpleapps.com without Vercel deployment SSO."
   },
   "recording": {
     "fps": 30,
